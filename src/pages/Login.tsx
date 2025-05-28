@@ -10,6 +10,7 @@ export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showError, setShowError] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
 
@@ -26,6 +27,11 @@ export default function Login() {
     }
 
     setShowError(!showError);
+  };
+
+  const togglePasswordVisibility = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -48,12 +54,23 @@ export default function Login() {
           />
         </div>
         <div className="grid grid-cols-1 mt-3 relative">
-          <label htmlFor="password" className="text-slate-400">
-            Password
-          </label>
+          <div className="flex justify-start mb-1">
+            <label htmlFor="password" className="text-slate-400">
+              Password
+            </label>
+            <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              className="text-slate-400 hover:cursor-pointer hover:text-white focus:outline-none px-2"
+            >
+              <i className="material-symbols-outlined">
+                {showPassword ? "visibility_off" : "visibility"}
+              </i>
+            </button>
+          </div>
           <input
             id="password"
-            type="password"
+            type={showPassword ? "text" : "password"}
             name="password"
             placeholder="123456"
             onChange={(e) => setPassword(e.target.value)}
