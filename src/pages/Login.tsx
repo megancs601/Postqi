@@ -9,6 +9,7 @@ type LoginValues = {
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showError, setShowError] = useState(false);
 
   const navigate = useNavigate();
 
@@ -21,7 +22,10 @@ export default function Login() {
 
     if (validLogin({ username, password })) {
       navigate("/dashboard");
+      return;
     }
+
+    setShowError(!showError);
   };
 
   return (
@@ -63,6 +67,14 @@ export default function Login() {
           Login
         </button>
       </form>
+      {showError && (
+        <div className="max-w-sm m-auto mt-4 p-2.5 text-center bg-rose-500 text-white rounded-md flex justify-center">
+          <span className="material-symbols-outlined inline-flex mr-2">
+            error
+          </span>
+          <p>Invalid login</p>
+        </div>
+      )}
     </div>
   );
 }
