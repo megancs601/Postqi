@@ -1,12 +1,27 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
+
+type LoginValues = {
+  username: string;
+  password: string;
+};
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigate = useNavigate();
+
+  const validLogin = ({ username, password }: LoginValues): boolean => {
+    return username === "foo" && password === "bar";
+  };
+
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(username, password);
+
+    if (validLogin({ username, password })) {
+      navigate("/dashboard");
+    }
   };
 
   return (
