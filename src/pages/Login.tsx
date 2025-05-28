@@ -6,7 +6,11 @@ type LoginValues = {
   password: string;
 };
 
-export default function Login() {
+interface LoginProps {
+  onLogin: () => void;
+}
+
+export default function Login({ onLogin }: LoginProps) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showError, setShowError] = useState(false);
@@ -22,6 +26,7 @@ export default function Login() {
     e.preventDefault();
 
     if (validLogin({ username, password })) {
+      onLogin();
       navigate("/dashboard");
       return;
     }
