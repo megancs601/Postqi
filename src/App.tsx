@@ -3,7 +3,6 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/DashBoard";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
-import "./App.css";
 
 function App() {
   return (
