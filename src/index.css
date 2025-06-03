@@ -14,3 +14,15 @@ body {
     color-scheme: dark;
   }
 }
+
+button {
+  @apply hover:cursor-pointer;
+}
+
+input {
+  @apply border border-slate-700 rounded-md text-slate-300;
+}
+
+.material-symbols-outlined {
+  @apply text-slate-400;
+}

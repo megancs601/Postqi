@@ -43,7 +43,7 @@ export default function Login({ onLogin }: LoginProps) {
     <div>
       <form
         onSubmit={handleLogin}
-        className="max-w-sm m-auto mt-40 grid grid-cols-1 gap-2 border-1 border-gray-800 p-6 rounded-lg dark:bg-gray-900"
+        className="max-w-sm m-auto mt-40 grid grid-cols-1 gap-2 border border-slate-800 p-6 rounded-lg dark:bg-gray-900"
       >
         <h1 className="m-auto mb-7 text-2xl">Log in to Postqi</h1>
         <div className="grid grid-cols-1 relative">
@@ -55,7 +55,7 @@ export default function Login({ onLogin }: LoginProps) {
             name="username"
             placeholder="FooBar"
             onChange={(e) => setUsername(e.target.value)}
-            className="px-2 py-1 border-1 border-gray-800 focus:outline focus:outline-sky-500 rounded-md dark:bg-gray-950 placeholder:text-gray-500"
+            className="px-2 py-1 focus:outline focus:outline-sky-500 dark:bg-gray-950 placeholder:text-gray-500"
           />
         </div>
         <div className="grid grid-cols-1 mt-3 relative">
@@ -66,7 +66,7 @@ export default function Login({ onLogin }: LoginProps) {
             <button
               type="button"
               onClick={togglePasswordVisibility}
-              className="text-slate-400 hover:cursor-pointer hover:text-white focus:outline-none px-2"
+              className="hover:text-white focus:outline-none px-2"
             >
               <i className="material-symbols-outlined">
                 {showPassword ? "visibility_off" : "visibility"}
@@ -79,12 +79,12 @@ export default function Login({ onLogin }: LoginProps) {
             name="password"
             placeholder="123456"
             onChange={(e) => setPassword(e.target.value)}
-            className="px-2 py-1 border-1 border-gray-800 focus:outline focus:outline-sky-500 rounded-md dark:bg-gray-950 placeholder:text-gray-500"
+            className="px-2 py-1 focus:outline focus:outline-sky-500 dark:bg-gray-950 placeholder:text-gray-500"
           />
         </div>
         <button
           type="submit"
-          className="px-3 py-2 mt-4 rounded-md bg-sky-500 hover:bg-sky-600 hover:cursor-pointer"
+          className="px-3 py-2 mt-4 rounded-md bg-sky-500 hover:bg-sky-600"
         >
           Login
         </button>

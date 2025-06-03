@@ -3,6 +3,7 @@ import type { ColumnState } from "../types/board";
 import { initialData } from "../data/initialState";
 import { DragDropContext, type DropResult } from "@hello-pangea/dnd";
 import Column from "../components/Column";
+import Controls from "../components/Controls";
 
 export default function Dashboard() {
   const [columns, setColumns] = useState<ColumnState>(initialData);
@@ -40,12 +41,17 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-full m-auto flex space-x-4 justify-center">
-      <DragDropContext onDragEnd={onDragEnd}>
-        {Object.entries(columns).map(([_, column]) => (
-          <Column key={column.id} column={column} />
-        ))}
-      </DragDropContext>
+    <div className="flex">
+      <div className="w-full px-4">
+        <Controls />
+        <div className="min-h-full m-auto flex space-x-4 justify-left ">
+          <DragDropContext onDragEnd={onDragEnd}>
+            {Object.entries(columns).map(([_, column]) => (
+              <Column key={column.id} column={column} />
+            ))}
+          </DragDropContext>
+        </div>
+      </div>
     </div>
   );
 }
