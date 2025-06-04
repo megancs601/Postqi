@@ -1,6 +1,6 @@
 export default function Controls() {
   return (
-    <section aria-label="View controls" className="m-auto flex py-4 space-x-4">
+    <section aria-label="View controls" className="flex py-4 space-x-4">
       <div className="flex space-x-4">
         <div className="relative">
           <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none">

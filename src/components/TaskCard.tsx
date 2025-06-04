@@ -15,7 +15,7 @@ export default function TaskCard({ task, index }: TaskCardProps) {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           style={{ ...provided.draggableProps.style }}
-          className="min-w-65 min-h-30 bg-slate-700 rounded-sm px-3 mb-2"
+          className="w-full min-h-30 bg-slate-700 rounded-sm px-3 mb-2"
         >
           {task.content}
         </li>

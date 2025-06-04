@@ -42,16 +42,18 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="flex">
+    <div className="flex h-screen">
       <NavBar />
       <main className="w-full px-4" aria-label="Dashboard workspace">
-        <Controls />
-        <div className="min-h-full m-auto flex space-x-4 justify-left ">
-          <DragDropContext onDragEnd={onDragEnd}>
-            {Object.entries(columns).map(([_, column]) => (
-              <Column key={column.id} column={column} />
-            ))}
-          </DragDropContext>
+        <div className="m-auto h-screen grid grid-rows-[auto_1fr]">
+          <Controls />
+          <div className="flex space-x-4">
+            <DragDropContext onDragEnd={onDragEnd}>
+              {Object.entries(columns).map(([_, column]) => (
+                <Column key={column.id} column={column} />
+              ))}
+            </DragDropContext>
+          </div>
         </div>
       </main>
     </div>
