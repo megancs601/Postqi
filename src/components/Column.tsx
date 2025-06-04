@@ -8,9 +8,14 @@ interface ColumnProps {
 
 export default function Column({ column }: ColumnProps) {
   return (
-    <div className="h-screen flex flex-col bg-slate-900 border border-slate-700 p-3 rounded-sm">
+    <section
+      aria-labelledby={`column-title-${column.id}`}
+      className="h-screen flex flex-col bg-slate-900 border border-slate-700 p-3 rounded-sm"
+    >
       <div className="flex flex-row justify-between">
-        <h2 className="text-slate-300 h-min">{column.title}</h2>
+        <h2 id={`column-title-${column.id}`} className="mb-1">
+          {column.title}
+        </h2>
         {column.id === "todo" && (
           <button className="hover:cursor-pointer hover:bg-slate-700 px-1 h-6 rounded-sm">
             <span className="material-symbols-outlined  text-slate-300">
@@ -19,24 +24,22 @@ export default function Column({ column }: ColumnProps) {
           </button>
         )}
       </div>
-      <hr className={`border-1 ${column.color} mt-1  mb-3 `} />
-
+      <hr className={`border-1 ${column.color} mb-3`} />
       <Droppable droppableId={column.id}>
         {(provided) => (
-          <div
+          <ul
             ref={provided.innerRef}
             {...provided.droppableProps}
+            aria-labelledby={`column-title-${column.id}`}
             className="min-w-72 flex-1 overflow-y-auto"
           >
-            <div className="grid grid-cols-1">
-              {column.tasks.map((task, index) => (
-                <TaskCard key={task.id} task={task} index={index} />
-              ))}
-            </div>
+            {column.tasks.map((task, index) => (
+              <TaskCard key={task.id} task={task} index={index} />
+            ))}
             {provided.placeholder}
-          </div>
+          </ul>
         )}
       </Droppable>
-    </div>
+    </section>
   );
 }
