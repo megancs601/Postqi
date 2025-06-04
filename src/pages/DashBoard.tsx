@@ -3,6 +3,7 @@ import type { ColumnState } from "../types/board";
 import { initialData } from "../data/initialState";
 import { DragDropContext, type DropResult } from "@hello-pangea/dnd";
 import Column from "../components/Column";
+import NavBar from "../components/NavBar";
 import Controls from "../components/Controls";
 
 export default function Dashboard() {
@@ -42,7 +43,8 @@ export default function Dashboard() {
 
   return (
     <div className="flex">
-      <div className="w-full px-4">
+      <NavBar />
+      <main className="w-full px-4" aria-label="Dashboard workspace">
         <Controls />
         <div className="min-h-full m-auto flex space-x-4 justify-left ">
           <DragDropContext onDragEnd={onDragEnd}>
@@ -51,7 +53,7 @@ export default function Dashboard() {
             ))}
           </DragDropContext>
         </div>
-      </div>
+      </main>
     </div>
   );
 }

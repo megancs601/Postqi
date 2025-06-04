@@ -1,9 +1,6 @@
 export default function Controls() {
   return (
-    <section
-      aria-label="View controls"
-      className="m-auto flex justify-between py-4 "
-    >
+    <section aria-label="View controls" className="m-auto flex py-4 space-x-4">
       <div className="flex space-x-4">
         <div className="relative">
           <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none">
@@ -58,6 +55,14 @@ export default function Controls() {
           </li>
         </ul>
       </div>
+      <button
+        type="button"
+        aria-label="User account"
+        className="material-symbols-outlined h-auto w-10 hover:bg-slate-700 rounded-sm px-1"
+        style={{ fontSize: "30px" }}
+      >
+        account_circle
+      </button>
     </section>
   );
 }
