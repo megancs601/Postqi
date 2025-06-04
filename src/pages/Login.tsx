@@ -52,8 +52,10 @@ export default function Login({ onLogin }: LoginProps) {
           </label>
           <input
             type="text"
+            id="username"
             name="username"
             placeholder="FooBar"
+            aria-describedby={showError ? "login-error" : undefined}
             onChange={(e) => setUsername(e.target.value)}
             className="px-2 py-1 focus:outline focus:outline-sky-500 dark:bg-gray-950 placeholder:text-gray-500"
           />
@@ -66,7 +68,8 @@ export default function Login({ onLogin }: LoginProps) {
             <button
               type="button"
               onClick={togglePasswordVisibility}
-              className="hover:text-white focus:outline-none px-2"
+              className="hover:text-white h-6 px-2"
+              aria-label={showPassword ? "Hide password" : "Show password"}
             >
               <i className="material-symbols-outlined">
                 {showPassword ? "visibility_off" : "visibility"}
@@ -74,8 +77,8 @@ export default function Login({ onLogin }: LoginProps) {
             </button>
           </div>
           <input
-            id="password"
             type={showPassword ? "text" : "password"}
+            id="password"
             name="password"
             placeholder="123456"
             onChange={(e) => setPassword(e.target.value)}
@@ -90,7 +93,11 @@ export default function Login({ onLogin }: LoginProps) {
         </button>
       </form>
       {showError && (
-        <div className="max-w-sm m-auto mt-4 p-2.5 text-center bg-rose-500 text-white rounded-md flex justify-center">
+        <div
+          id="login-error"
+          role="alert"
+          className="max-w-sm m-auto mt-4 p-2.5 text-center bg-rose-500 text-white rounded-md flex justify-center"
+        >
           <span className="material-symbols-outlined inline-flex mr-2">
             error
           </span>
