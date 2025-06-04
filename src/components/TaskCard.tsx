@@ -10,7 +10,7 @@ export default function TaskCard({ task, index }: TaskCardProps) {
   return (
     <Draggable draggableId={task.id} index={index}>
       {(provided) => (
-        <div
+        <li
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
@@ -18,7 +18,7 @@ export default function TaskCard({ task, index }: TaskCardProps) {
           className="min-w-65 min-h-30 bg-slate-700 rounded-sm px-3 mb-2"
         >
           {task.content}
-        </div>
+        </li>
       )}
     </Draggable>
   );
