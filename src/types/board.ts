@@ -1,6 +1,7 @@
 export type Task = {
   id: string;
   content: string;
+  date: string;
 };
 
 export type Column = {
