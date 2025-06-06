@@ -2,6 +2,7 @@ export type Task = {
   id: string;
   content: string;
   date: string;
+  priority: number;
 };
 
 export type Column = {

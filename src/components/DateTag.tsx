@@ -19,7 +19,9 @@ export default function DateTag({ date }: DateProp) {
   const formatted = `${mm}/${dd}/${yyyy}`;
 
   return (
-    <span className={`rounded-sm p-1 text-xs font-bold ${colorMap[color]}`}>
+    <span
+      className={`rounded-sm px-2 py-1 text-xs font-bold ${colorMap[color]}`}
+    >
       {formatted}
     </span>
   );
