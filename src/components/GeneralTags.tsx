@@ -6,19 +6,19 @@ type TagsProp = {
 
 export default function GeneralTags({ tags }: TagsProp) {
   const colorMap: Record<string, string> = {
-    pink: "text-pink-500",
-    purple: "text-purple-500",
-    cyan: "text-cyan-500",
-    red: "text-red-500",
-    blue: "text-blue-500",
-    yellow: "text-yellow-500",
-    gray: "text-gray-500",
-    indigo: "text-indigo-500",
-    green: "text-green-500",
+    pink: "bg-pink-500",
+    purple: "bg-purple-500",
+    cyan: "bg-cyan-500",
+    red: "bg-red-500",
+    blue: "bg-blue-500",
+    yellow: "bg-yellow-500",
+    gray: "bg-gray-500",
+    indigo: "bg-indigo-500",
+    green: "bg-green-500",
   };
 
   return (
-    <div>
+    <div className="space-x-2">
       {tags.map((tag) => (
         <span className={`tag ${colorMap[tag.color]}`}>{tag.title}</span>
       ))}

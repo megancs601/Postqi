@@ -22,10 +22,10 @@ export default function TaskCard({ task, index }: TaskCardProps) {
           className="min-w-65 min-h-30 bg-slate-700 rounded-sm px-3 mb-2 grid"
         >
           <div>{task.content}</div>
-          <div className="space-x-2">
+          <GeneralTags tags={task.tags} />
+          <div className="inline-flex items-center justify-end space-x-2">
             <PriorityTag priority={task.priority} />
             <DateTag date={task.date} />
-            <GeneralTags tags={task.tags} />
           </div>
         </li>
       )}
