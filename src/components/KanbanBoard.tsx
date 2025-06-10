@@ -3,14 +3,19 @@ import type { ColumnState } from "../types/board";
 import { initialData } from "../data/initialState";
 import { DragDropContext, type DropResult } from "@hello-pangea/dnd";
 import Column from "../components/Column";
+import { useDispatch } from "react-redux";
+import { moveTask } from "../store/boardSlice";
 
 export default function KanbanBoard() {
   const [columns, setColumns] = useState<ColumnState>(initialData);
+  const dispatch = useDispatch();
 
   const onDragEnd = (result: DropResult) => {
     const { source, destination } = result;
     // if no new destination, return early
     if (!destination) return;
+
+    dispatch(moveTask());
 
     const sourceCol = columns[source.droppableId];
     const sourceTasks = [...sourceCol.tasks];
