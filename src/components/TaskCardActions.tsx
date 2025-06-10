@@ -1,9 +1,36 @@
 import { Menu } from "@base-ui-components/react/menu";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { moveTask } from "../store/boardSlice";
+import type { RootState } from "../store";
 
-export default function TaskCardAction() {
+interface TaskCardProps {
+  index: number;
+  columnId: string;
+}
+
+export default function TaskCardAction({ index, columnId }: TaskCardProps) {
   const [isOpen, setIsOpen] = useState(false);
   const menuItemClass = "px-4 py-2 text-sm hover:bg-slate-700 cursor-pointer";
+
+  const dispatch = useDispatch();
+  const tasksCount = useSelector(
+    (state: RootState) => state.board[columnId].tasks.length ?? 0,
+  );
+
+  const moveHandler = (value: number) => {
+    // dont go below 0, and don't go beyond current amount of tasks
+    const newIndex = Math.max(0, Math.min(index + value, tasksCount - 1));
+
+    dispatch(
+      moveTask({
+        sourceColId: columnId,
+        destinationColId: columnId,
+        sourceIndex: index,
+        destinationIndex: newIndex,
+      }),
+    );
+  };
 
   // TODO: add icons to list items
   return (
@@ -34,8 +61,15 @@ export default function TaskCardAction() {
               </span>
             </div>
             <Menu.Item className={menuItemClass}>Move To...</Menu.Item>
-            <Menu.Item className={menuItemClass}>Move Up</Menu.Item>
-            <Menu.Item className={menuItemClass}>Move Down</Menu.Item>
+            <Menu.Item
+              className={menuItemClass}
+              onClick={() => moveHandler(-1)}
+            >
+              Move Up
+            </Menu.Item>
+            <Menu.Item className={menuItemClass} onClick={() => moveHandler(1)}>
+              Move Down
+            </Menu.Item>
             <Menu.Item className={menuItemClass}>Archive</Menu.Item>
             <Menu.Item className={menuItemClass}>Delete</Menu.Item>
           </Menu.Popup>

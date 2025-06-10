@@ -8,9 +8,10 @@ import TaskCardAction from "./TaskCardActions";
 interface TaskCardProps {
   task: Task;
   index: number;
+  columnId: string;
 }
 
-export default function TaskCard({ task, index }: TaskCardProps) {
+export default function TaskCard({ task, index, columnId }: TaskCardProps) {
   return (
     <Draggable draggableId={task.id} index={index}>
       {(provided) => (
@@ -23,7 +24,7 @@ export default function TaskCard({ task, index }: TaskCardProps) {
         >
           <div className="flex items-center justify-between">
             <p className="w-60">{task.content}</p>
-            <TaskCardAction />
+            <TaskCardAction index={index} columnId={columnId} />
           </div>
           <GeneralTags tags={task.tags} />
           <div className="inline-flex items-center justify-end space-x-2">

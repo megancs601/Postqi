@@ -25,7 +25,12 @@ export default function Column({ column }: ColumnProps) {
             className="min-w-72 flex-1 overflow-y-auto"
           >
             {column.tasks.map((task, index) => (
-              <TaskCard key={task.id} task={task} index={index} />
+              <TaskCard
+                key={task.id}
+                task={task}
+                index={index}
+                columnId={column.id}
+              />
             ))}
             {provided.placeholder}
           </ul>
