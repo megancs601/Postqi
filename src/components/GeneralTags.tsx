@@ -23,7 +23,9 @@ export default function GeneralTags({ tags }: TagsProp) {
   return (
     <div className="inline-flex items-center justify-start space-x-2">
       {tags.map((tag) => (
-        <span className={`tag ${colorMap[tag.color]}`}>{tag.title}</span>
+        <span key={tag.title} className={`tag ${colorMap[tag.color]}`}>
+          {tag.title}
+        </span>
       ))}
     </div>
   );
