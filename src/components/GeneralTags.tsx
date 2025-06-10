@@ -15,6 +15,9 @@ export default function GeneralTags({ tags }: TagsProp) {
     gray: "bg-gray-500",
     indigo: "bg-indigo-500",
     green: "bg-green-500",
+    violet: "bg-violet-700",
+    lime: "bg-lime-500",
+    fuchsia: "bg-fuchsia-500",
   };
 
   return (

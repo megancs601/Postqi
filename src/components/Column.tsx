@@ -10,7 +10,7 @@ export default function Column({ column }: ColumnProps) {
   return (
     <section
       aria-labelledby={`column-title-${column.id}`}
-      className="h-screen flex flex-col bg-slate-900 border border-slate-700 p-3 rounded-sm"
+      className="h-full flex flex-col bg-slate-900 border border-slate-700 p-3 rounded-sm"
     >
       <h2 id={`column-title-${column.id}`} className="mb-1">
         {column.title}

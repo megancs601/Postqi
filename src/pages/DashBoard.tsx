@@ -42,11 +42,14 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="flex">
+    <div className="flex h-screen">
       <NavBar />
-      <main className="w-full px-4" aria-label="Dashboard workspace">
+      <main
+        className="flex flex-col w-full h-full px-4"
+        aria-label="Dashboard workspace"
+      >
         <Controls />
-        <div className="min-h-full m-auto flex space-x-4 justify-left ">
+        <div className="flex-1 flex space-x-4 overflow-y-auto">
           <DragDropContext onDragEnd={onDragEnd}>
             {Object.entries(columns).map(([_, column]) => (
               <Column key={column.id} column={column} />
