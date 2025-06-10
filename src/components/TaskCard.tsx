@@ -21,8 +21,8 @@ export default function TaskCard({ task, index }: TaskCardProps) {
           style={{ ...provided.draggableProps.style }}
           className="min-w-65 min-h-30 bg-slate-700 rounded-sm px-3 mb-2 grid"
         >
-          <div className="flex items-center justify-between space-x-1">
-            {task.content}
+          <div className="flex items-center justify-between">
+            <p className="w-60">{task.content}</p>
             <TaskCardAction />
           </div>
           <GeneralTags tags={task.tags} />
