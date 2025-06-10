@@ -1,47 +1,25 @@
-import { useState } from "react";
-import type { ColumnState } from "../types/board";
-import { initialData } from "../data/initialState";
 import { DragDropContext, type DropResult } from "@hello-pangea/dnd";
 import Column from "../components/Column";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "../store";
 import { moveTask } from "../store/boardSlice";
 
 export default function KanbanBoard() {
-  const [columns, setColumns] = useState<ColumnState>(initialData);
+  const columns = useSelector((state: RootState) => state.board);
   const dispatch = useDispatch();
 
   const onDragEnd = (result: DropResult) => {
     const { source, destination } = result;
-    // if no new destination, return early
     if (!destination) return;
 
-    dispatch(moveTask());
-
-    const sourceCol = columns[source.droppableId];
-    const sourceTasks = [...sourceCol.tasks];
-    const [movedTask] = sourceTasks.splice(source.index, 1);
-
-    // if same column, get selected task and move it to new index of same column, update data
-    if (source.droppableId == destination.droppableId) {
-      sourceTasks.splice(destination.index, 0, movedTask);
-      setColumns({
-        ...columns,
-        [sourceCol.id]: { ...sourceCol, tasks: sourceTasks },
-      });
-
-      return;
-    }
-
-    // else get new column id, and insert selected task at new index, update data
-    const destinationCol = columns[destination.droppableId];
-    const destinationTasks = [...destinationCol.tasks];
-
-    destinationTasks.splice(destination.index, 0, movedTask);
-    setColumns({
-      ...columns,
-      [sourceCol.id]: { ...sourceCol, tasks: sourceTasks },
-      [destinationCol.id]: { ...destinationCol, tasks: destinationTasks },
-    });
+    dispatch(
+      moveTask({
+        sourceColId: source.droppableId,
+        destinationColId: destination.droppableId,
+        sourceIndex: source.index,
+        destinationIndex: destination.index,
+      }),
+    );
   };
 
   return (
