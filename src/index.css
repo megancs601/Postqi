@@ -35,6 +35,34 @@ input {
   @apply border border-slate-700 rounded-md text-slate-300;
 }
 
+.root {
+  isolation: isolate;
+}
+
 .tag {
   @apply rounded-full px-2 py-1 text-xs font-bold;
+}
+
+#tooltip-arrow {
+  display: flex;
+
+  &[data-side="top"] {
+    bottom: -8px;
+    rotate: 180deg;
+  }
+
+  &[data-side="bottom"] {
+    top: -8px;
+    rotate: 0deg;
+  }
+
+  &[data-side="left"] {
+    right: -13px;
+    rotate: 90deg;
+  }
+
+  &[data-side="right"] {
+    left: -13px;
+    rotate: -90deg;
+  }
 }
