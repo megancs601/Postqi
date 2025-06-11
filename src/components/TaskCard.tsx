@@ -24,7 +24,11 @@ export default function TaskCard({ task, index, columnId }: TaskCardProps) {
         >
           <div className="flex items-center justify-between">
             <p className="w-60">{task.content}</p>
-            <TaskCardAction index={index} columnId={columnId} />
+            <TaskCardAction
+              index={index}
+              columnId={columnId}
+              taskId={task.id}
+            />
           </div>
           <GeneralTags tags={task.tags} />
           <div className="inline-flex items-center justify-end space-x-2">

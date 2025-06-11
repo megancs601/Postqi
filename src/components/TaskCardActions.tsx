@@ -2,6 +2,7 @@ import { Menu } from "@base-ui-components/react/menu";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  deleteTask,
   getAllColumns,
   getOtherColumnIds,
   getTaskLengthAtColumn,
@@ -11,9 +12,14 @@ import {
 interface TaskCardProps {
   index: number;
   columnId: string;
+  taskId: string;
 }
 
-export default function TaskCardAction({ index, columnId }: TaskCardProps) {
+export default function TaskCardAction({
+  index,
+  columnId,
+  taskId,
+}: TaskCardProps) {
   const [isOpen, setIsOpen] = useState(false);
   const menuItemClass =
     "px-4 py-2 text-sm hover:bg-slate-700 cursor-pointer rounded-md";
@@ -52,6 +58,11 @@ export default function TaskCardAction({ index, columnId }: TaskCardProps) {
     );
   };
 
+  const deleteHandler = () => {
+    dispatch(deleteTask({ columnId, taskId }));
+  };
+
+  // TODO: implement archive.
   return (
     <Menu.Root onOpenChange={(open) => setIsOpen(open)}>
       <Menu.Trigger>
@@ -112,7 +123,9 @@ export default function TaskCardAction({ index, columnId }: TaskCardProps) {
               Move down
             </Menu.Item>
             <Menu.Item className={menuItemClass}>Archive</Menu.Item>
-            <Menu.Item className={menuItemClass}>Delete</Menu.Item>
+            <Menu.Item className={menuItemClass} onClick={deleteHandler}>
+              Delete
+            </Menu.Item>
           </Menu.Popup>
         </Menu.Positioner>
       </Menu.Portal>
