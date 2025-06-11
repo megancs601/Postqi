@@ -16,13 +16,10 @@ export default function Column({ column }: ColumnProps) {
         <h2 id={`column-title-${column.id}`} className="mb-1">
           {column.title}
         </h2>
-        {column.id === "todo" && (
-          <button className="hover:cursor-pointer hover:bg-slate-700 px-1 h-6 rounded-sm">
-            <span className="material-symbols-outlined  text-slate-300">
-              add
-            </span>
-          </button>
-        )}
+
+        <button className="hover:cursor-pointer hover:bg-slate-700 px-1 h-6 rounded-sm">
+          <span className="material-symbols-outlined  text-slate-300">add</span>
+        </button>
       </div>
       <hr className={`border-1 ${column.color} mb-3`} />
       <Droppable droppableId={column.id}>
