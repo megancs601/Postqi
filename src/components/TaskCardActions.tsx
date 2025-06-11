@@ -1,8 +1,11 @@
 import { Menu } from "@base-ui-components/react/menu";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { moveTask } from "../store/boardSlice";
-import type { RootState } from "../store";
+import {
+  getOtherColumnIds,
+  getTaskLengthAtColumn,
+  moveTask,
+} from "../store/boardSlice";
 
 interface TaskCardProps {
   index: number;
@@ -11,12 +14,12 @@ interface TaskCardProps {
 
 export default function TaskCardAction({ index, columnId }: TaskCardProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const menuItemClass = "px-4 py-2 text-sm hover:bg-slate-700 cursor-pointer";
+  const menuItemClass =
+    "px-4 py-2 text-sm hover:bg-slate-700 cursor-pointer rounded-md";
 
   const dispatch = useDispatch();
-  const tasksCount = useSelector(
-    (state: RootState) => state.board[columnId].tasks.length ?? 0,
-  );
+  const tasksCount = useSelector(getTaskLengthAtColumn(columnId));
+  const availableColumns = useSelector(getOtherColumnIds(columnId));
 
   const moveHandler = (value: number) => {
     // dont go below 0, and don't go beyond current amount of tasks
@@ -32,7 +35,6 @@ export default function TaskCardAction({ index, columnId }: TaskCardProps) {
     );
   };
 
-  // TODO: add icons to list items
   return (
     <Menu.Root onOpenChange={(open) => setIsOpen(open)}>
       <Menu.Trigger>
@@ -44,31 +46,47 @@ export default function TaskCardAction({ index, columnId }: TaskCardProps) {
       </Menu.Trigger>
       <Menu.Portal>
         <Menu.Positioner sideOffset={0}>
-          <Menu.Popup className="rounded-sm bg-gray-900 border border-slate-600 py-4 w-50">
+          <Menu.Popup className="rounded-sm bg-gray-900 border border-slate-600 pt-4 pb-2 px-1 w-48">
             <Menu.Arrow id="tooltip-arrow">
               <ArrowSvg />
             </Menu.Arrow>
-            <div className="flex items-center justify-between px-4 pb-2 ">
-              <h2 className="text-sm text-slate-200 font-semibold text-center">
-                Task Actions
-              </h2>
-              <span
-                className="material-symbols-outlined cursor-pointer text-slate-400 hover:text-slate-200"
-                style={{ fontSize: "14px", fontWeight: 700 }}
-                onClick={() => setIsOpen(false)}
-              >
-                close
-              </span>
-            </div>
-            <Menu.Item className={menuItemClass}>Move To...</Menu.Item>
+            <h2 className="text-sm text-slate-200 font-semibold text-center mb-1">
+              Task Actions
+            </h2>
+            {/* Submenu */}
+            <Menu.Root>
+              <Menu.SubmenuTrigger className={menuItemClass}>
+                <div className="flex items-center justify-between ">
+                  Move to column
+                  <span
+                    className="material-symbols-outlined h-5 mb-[-4px]"
+                    style={{ fontSize: "18px" }}
+                  >
+                    chevron_right
+                  </span>
+                </div>
+              </Menu.SubmenuTrigger>
+              <Menu.Portal>
+                <Menu.Positioner>
+                  <Menu.Popup className="rounded-sm bg-gray-900 border border-slate-600 p-1 w-50">
+                    {availableColumns.map((columnId) => (
+                      <Menu.Item key={columnId} className={menuItemClass}>
+                        {columnId}
+                      </Menu.Item>
+                    ))}
+                  </Menu.Popup>
+                </Menu.Positioner>
+              </Menu.Portal>
+            </Menu.Root>
+            {/* End of Submenu */}
             <Menu.Item
               className={menuItemClass}
               onClick={() => moveHandler(-1)}
             >
-              Move Up
+              Move up
             </Menu.Item>
             <Menu.Item className={menuItemClass} onClick={() => moveHandler(1)}>
-              Move Down
+              Move down
             </Menu.Item>
             <Menu.Item className={menuItemClass}>Archive</Menu.Item>
             <Menu.Item className={menuItemClass}>Delete</Menu.Item>

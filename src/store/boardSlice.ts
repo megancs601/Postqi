@@ -1,6 +1,7 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import { initialData } from "../data/initialState";
 import type { ColumnState } from "../types/board";
+import type { RootState } from "./index";
 
 interface DragDropPayload {
   sourceColId: string;
@@ -26,3 +27,13 @@ export const boardSlice = createSlice({
 
 export const { moveTask } = boardSlice.actions;
 export default boardSlice.reducer;
+
+// SELECTORS
+export const getAllColumns = (state: RootState) => state.board;
+export const getColumnId = (columnId: string) => (state: RootState) =>
+  state.board[columnId];
+export const getOtherColumnIds = (excludeId: string) => (state: RootState) =>
+  Object.keys(state.board).filter((id) => id !== excludeId);
+
+export const getTaskLengthAtColumn = (columnId: string) => (state: RootState) =>
+  state.board[columnId].tasks.length ?? 0;
