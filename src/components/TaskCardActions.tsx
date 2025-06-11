@@ -2,6 +2,7 @@ import { Menu } from "@base-ui-components/react/menu";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  getAllColumns,
   getOtherColumnIds,
   getTaskLengthAtColumn,
   moveTask,
@@ -18,17 +19,33 @@ export default function TaskCardAction({ index, columnId }: TaskCardProps) {
     "px-4 py-2 text-sm hover:bg-slate-700 cursor-pointer rounded-md";
 
   const dispatch = useDispatch();
+  const board = useSelector(getAllColumns);
   const tasksCount = useSelector(getTaskLengthAtColumn(columnId));
   const availableColumns = useSelector(getOtherColumnIds(columnId));
 
-  const moveHandler = (value: number) => {
+  // move the task up(1) or down(-1) the current column
+  const moveHandler = (direction: number) => {
     // dont go below 0, and don't go beyond current amount of tasks
-    const newIndex = Math.max(0, Math.min(index + value, tasksCount - 1));
+    const newIndex = Math.max(0, Math.min(index + direction, tasksCount - 1));
 
     dispatch(
       moveTask({
         sourceColId: columnId,
         destinationColId: columnId,
+        sourceIndex: index,
+        destinationIndex: newIndex,
+      }),
+    );
+  };
+
+  // move to new column at the last position
+  const moveToColHandler = (newColumnId: string) => {
+    const newIndex = board[newColumnId].tasks.length ?? 0;
+
+    dispatch(
+      moveTask({
+        sourceColId: columnId,
+        destinationColId: newColumnId,
         sourceIndex: index,
         destinationIndex: newIndex,
       }),
@@ -55,7 +72,9 @@ export default function TaskCardAction({ index, columnId }: TaskCardProps) {
             </h2>
             {/* Submenu */}
             <Menu.Root>
-              <Menu.SubmenuTrigger className={menuItemClass}>
+              <Menu.SubmenuTrigger
+                className={`${menuItemClass} data-[popup-open]:bg-slate-700`}
+              >
                 <div className="flex items-center justify-between ">
                   Move to column
                   <span
@@ -70,8 +89,12 @@ export default function TaskCardAction({ index, columnId }: TaskCardProps) {
                 <Menu.Positioner>
                   <Menu.Popup className="rounded-sm bg-gray-900 border border-slate-600 p-1 w-50">
                     {availableColumns.map((columnId) => (
-                      <Menu.Item key={columnId} className={menuItemClass}>
-                        {columnId}
+                      <Menu.Item
+                        key={columnId}
+                        className={menuItemClass}
+                        onClick={() => moveToColHandler(columnId)}
+                      >
+                        {board[columnId].title}
                       </Menu.Item>
                     ))}
                   </Menu.Popup>
