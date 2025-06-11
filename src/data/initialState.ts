@@ -17,7 +17,7 @@ export const initialData: ColumnState = {
         content: "Write unit tests",
         date: "2025-10-31T00:00:00Z",
         priority: 1,
-        tags: [],
+        tags: [{ title: "code", color: "gray" }],
       },
       {
         id: "task-5",
@@ -76,8 +76,8 @@ export const initialData: ColumnState = {
         date: "2025-06-08T00:00:00Z",
         priority: 1,
         tags: [
-          { title: "writing", color: "indigo" },
-          { title: "tech", color: "gray" },
+          { title: "writing", color: "fuchsia" },
+          { title: "tech", color: "lime" },
         ],
       },
     ],
@@ -99,7 +99,7 @@ export const initialData: ColumnState = {
         content: "Renew car registration",
         date: "2025-06-01T00:00:00Z",
         priority: 3,
-        tags: [{ title: "errand", color: "green" }],
+        tags: [{ title: "home", color: "pink" }],
       },
       {
         id: "task-11",
@@ -113,7 +113,7 @@ export const initialData: ColumnState = {
         content: "Submit job application to company",
         date: "2025-06-04T00:00:00Z",
         priority: 1,
-        tags: [{ title: "career", color: "blue" }],
+        tags: [{ title: "career", color: "violet" }],
       },
     ],
     color: "border-green-400",

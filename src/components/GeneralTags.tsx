@@ -15,12 +15,17 @@ export default function GeneralTags({ tags }: TagsProp) {
     gray: "bg-gray-500",
     indigo: "bg-indigo-500",
     green: "bg-green-500",
+    violet: "bg-violet-700",
+    lime: "bg-lime-500",
+    fuchsia: "bg-fuchsia-500",
   };
 
   return (
-    <div className="space-x-2">
+    <div className="inline-flex items-center justify-start space-x-2">
       {tags.map((tag) => (
-        <span className={`tag ${colorMap[tag.color]}`}>{tag.title}</span>
+        <span key={tag.title} className={`tag ${colorMap[tag.color]}`}>
+          {tag.title}
+        </span>
       ))}
     </div>
   );

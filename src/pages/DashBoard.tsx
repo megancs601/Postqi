@@ -1,59 +1,22 @@
-import { useState } from "react";
-import type { ColumnState } from "../types/board";
-import { initialData } from "../data/initialState";
-import { DragDropContext, type DropResult } from "@hello-pangea/dnd";
-import Column from "../components/Column";
 import NavBar from "../components/NavBar";
 import Controls from "../components/Controls";
+import KanbanBoard from "../components/KanbanBoard";
+import { Provider } from "react-redux";
+import { store } from "../store";
 
 export default function Dashboard() {
-  const [columns, setColumns] = useState<ColumnState>(initialData);
-
-  const onDragEnd = (result: DropResult) => {
-    const { source, destination } = result;
-    // if no new destination, return early
-    if (!destination) return;
-
-    const sourceCol = columns[source.droppableId];
-    const sourceTasks = [...sourceCol.tasks];
-    const [movedTask] = sourceTasks.splice(source.index, 1);
-
-    // if same column, get selected task and move it to new index of same column, update data
-    if (source.droppableId == destination.droppableId) {
-      sourceTasks.splice(destination.index, 0, movedTask);
-      setColumns({
-        ...columns,
-        [sourceCol.id]: { ...sourceCol, tasks: sourceTasks },
-      });
-
-      return;
-    }
-
-    // else get new column id, and insert selected task at new index, update data
-    const destinationCol = columns[destination.droppableId];
-    const destinationTasks = [...destinationCol.tasks];
-
-    destinationTasks.splice(destination.index, 0, movedTask);
-    setColumns({
-      ...columns,
-      [sourceCol.id]: { ...sourceCol, tasks: sourceTasks },
-      [destinationCol.id]: { ...destinationCol, tasks: destinationTasks },
-    });
-  };
-
   return (
-    <div className="flex">
-      <NavBar />
-      <main className="w-full px-4" aria-label="Dashboard workspace">
-        <Controls />
-        <div className="min-h-full m-auto flex space-x-4 justify-left ">
-          <DragDropContext onDragEnd={onDragEnd}>
-            {Object.entries(columns).map(([_, column]) => (
-              <Column key={column.id} column={column} />
-            ))}
-          </DragDropContext>
-        </div>
-      </main>
+    <div className="flex h-screen">
+      <Provider store={store}>
+        <NavBar />
+        <main
+          className="flex flex-col w-full h-full px-4"
+          aria-label="Dashboard workspace"
+        >
+          <Controls />
+          <KanbanBoard />
+        </main>
+      </Provider>
     </div>
   );
 }
