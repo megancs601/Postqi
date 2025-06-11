@@ -62,7 +62,8 @@ export default function TaskCardAction({
     dispatch(deleteTask({ columnId, taskId }));
   };
 
-  // TODO: implement archive.
+  // TODO: implement archive, confirm delete task with dialog
+  // DECIDE: should archive and delete both be in the same menu?
   return (
     <Menu.Root onOpenChange={(open) => setIsOpen(open)}>
       <Menu.Trigger>
@@ -122,7 +123,6 @@ export default function TaskCardAction({
             <Menu.Item className={menuItemClass} onClick={() => moveHandler(1)}>
               Move down
             </Menu.Item>
-            <Menu.Item className={menuItemClass}>Archive</Menu.Item>
             <Menu.Item className={menuItemClass} onClick={deleteHandler}>
               Delete
             </Menu.Item>
