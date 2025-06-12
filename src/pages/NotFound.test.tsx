@@ -2,7 +2,6 @@ import { render, screen } from "@testing-library/react";
 import NotFound from "./NotFound";
 import { MemoryRouter } from "react-router";
 
-// it("ahh", () => expect(true));
 it("renders error message", () => {
   render(
     <MemoryRouter>
