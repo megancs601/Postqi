@@ -4,8 +4,17 @@ type AuthState = {
   isAuthenticated: boolean;
 };
 
+const getIntinigialAuthState = (): boolean => {
+  try {
+    const stored = localStorage.getItem("isAuthenticated");
+    return stored === "true";
+  } catch {
+    return false;
+  }
+};
+
 const initialState: AuthState = {
-  isAuthenticated: false,
+  isAuthenticated: getIntinigialAuthState(),
 };
 
 export const authSlice = createSlice({
@@ -14,9 +23,11 @@ export const authSlice = createSlice({
   reducers: {
     login(state) {
       state.isAuthenticated = true;
+      localStorage.setItem("isAuthenticated", "true");
     },
     logout(state) {
       state.isAuthenticated = false;
+      localStorage.setItem("isAuthenticated", "false");
     },
   },
 });
