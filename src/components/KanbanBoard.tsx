@@ -24,7 +24,7 @@ export default function KanbanBoard() {
   return (
     <div className="flex-1 flex space-x-4 overflow-y-auto">
       <DragDropContext onDragEnd={onDragEnd}>
-        {Object.entries(columns).map(([_, column]) => (
+        {Object.values(columns).map((column) => (
           <Column key={column.id} column={column} />
         ))}
       </DragDropContext>

@@ -5,35 +5,43 @@ type PriorityProp = {
 export default function PriorityTag({ priority }: PriorityProp) {
   const priorityMap: Record<
     number,
-    { border: string; color: string; icon: string }
+    { border: string; color: string; icon: string; label: string }
   > = {
     1: {
-      border: "border border-red-500",
+      border: "border-red-500",
       color: "text-red-500",
       icon: "keyboard_double_arrow_up",
+      label: "high",
     },
     2: {
-      border: "border border-yellow-500",
+      border: "border-yellow-500",
       color: "text-yellow-500",
       icon: "equal",
+      label: "medium",
     },
     3: {
-      border: "border border-blue-400",
+      border: "border-blue-400",
       color: "text-blue-500",
       icon: "keyboard_arrow_down",
+      label: "low",
     },
   };
 
+  const { border, color, icon, label } = priorityMap[priority];
+
   return (
     <span
-      className={`inline-flex items-center justify-center gap-1 !p-1 rounded-full ${priorityMap[priority].border}`}
+      className={`inline-flex items-center justify-center gap-1 !p-1 rounded-full border ${border}`}
+      aria-label={`Currently ${label} priority`}
     >
       <span
-        className={`material-symbols-outlined !${priorityMap[priority].color}`}
+        className={`material-symbols-outlined !${color}`}
         style={{ fontSize: "14px", fontWeight: 700 }}
+        aria-hidden="true"
       >
-        {priorityMap[priority].icon}
+        {icon}
       </span>
+      <span className="sr-only">{label}</span>
     </span>
   );
 }
