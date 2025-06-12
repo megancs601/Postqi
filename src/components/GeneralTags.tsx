@@ -21,12 +21,15 @@ export default function GeneralTags({ tags }: TagsProp) {
   };
 
   return (
-    <div className="inline-flex items-center justify-start space-x-2">
+    <ul
+      className="list-none p-0 m-0 inline-flex items-center justify-start space-x-2"
+      aria-label="Tags"
+    >
       {tags.map((tag) => (
-        <span key={tag.title} className={`tag ${colorMap[tag.color]}`}>
+        <li key={tag.title} className={`tag ${colorMap[tag.color]}`}>
           {tag.title}
-        </span>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }

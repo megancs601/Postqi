@@ -11,19 +11,19 @@ export default function PriorityTag({ priority }: PriorityProp) {
       border: "border-red-500",
       color: "text-red-500",
       icon: "keyboard_double_arrow_up",
-      label: "High priority",
+      label: "high",
     },
     2: {
       border: "border-yellow-500",
       color: "text-yellow-500",
       icon: "equal",
-      label: "Medium priority",
+      label: "medium",
     },
     3: {
       border: "border-blue-400",
       color: "text-blue-500",
       icon: "keyboard_arrow_down",
-      label: "Low priority",
+      label: "low",
     },
   };
 
@@ -32,7 +32,7 @@ export default function PriorityTag({ priority }: PriorityProp) {
   return (
     <span
       className={`inline-flex items-center justify-center gap-1 !p-1 rounded-full border ${border}`}
-      aria-label={`Currently ${label}`}
+      aria-label={`Currently ${label} priority`}
     >
       <span
         className={`material-symbols-outlined !${color}`}
