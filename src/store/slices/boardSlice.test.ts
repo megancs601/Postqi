@@ -2,7 +2,9 @@ import boardReducer, {
   deleteTask,
   getAllColumns,
   getColumnById,
+  getAllTasksAtColumnId,
   moveTask,
+  getAllColumnIdsExcept,
 } from "./boardSlice";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -65,9 +67,17 @@ it("returns a specific column with getColumnById", () => {
   expect(result).toEqual(initialState.todo);
 });
 
-it.todo("returns other columns with getOtherColumns");
+it("returns other columns with getAllColumnIdsExcept", () => {
+  const state = { board: initialState };
+  const selector = getAllColumnIdsExcept(state as any, "todo");
 
-it.todo(
-  "returns the length of tasks in a specific column with getAllTasksAtColumnId",
-  () => {},
-);
+  expect(selector).toEqual(["done"]);
+});
+
+it("returns the length of tasks in a specific column with getAllTasksAtColumnId", () => {
+  const state = { board: initialState };
+  const selector = getAllTasksAtColumnId("done");
+  const result = selector(state as any);
+
+  expect(result.length).toEqual(2);
+});
