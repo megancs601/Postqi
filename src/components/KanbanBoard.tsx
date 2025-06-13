@@ -1,6 +1,6 @@
 import { DragDropContext, type DropResult } from "@hello-pangea/dnd";
 import Column from "../components/Column";
-import { getAllColumns, moveTask } from "../store/boardSlice";
+import { getAllColumns, moveTask } from "../store/slices/boardSlice";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 
 export default function KanbanBoard() {

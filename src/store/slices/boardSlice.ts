@@ -3,9 +3,9 @@ import {
   createSlice,
   type PayloadAction,
 } from "@reduxjs/toolkit";
-import { initialData } from "../data/initialState";
-import type { ColumnState } from "../types/board";
-import type { RootState } from "./index";
+import { initialData } from "../../data/initialState";
+import type { ColumnState } from "../../types/board";
+import type { RootState } from "../index";
 
 interface MoveTaskPayload {
   sourceColId: string;

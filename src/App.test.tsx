@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authReducer from "./store/authSlice";
-import boardReducer from "./store/boardSlice";
+import authReducer from "./store/slices/authSlice";
+import boardReducer from "./store/slices/boardSlice";
 import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import App from "./App";

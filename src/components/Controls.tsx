@@ -1,4 +1,4 @@
-import { logout } from "../store/authSlice";
+import { logout } from "../store/slices/authSlice";
 import { useAppDispatch } from "../store/hooks";
 
 export default function Controls() {

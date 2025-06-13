@@ -6,7 +6,7 @@ import {
   getOtherColumnIds,
   getTaskLengthAtColumn,
   moveTask,
-} from "../store/boardSlice";
+} from "../store/slices/boardSlice";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 
 interface TaskCardProps {

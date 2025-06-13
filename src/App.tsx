@@ -4,7 +4,7 @@ import Dashboard from "./pages/DashBoard";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
-import { login } from "./store/authSlice";
+import { login } from "./store/slices/authSlice";
 import { useAppDispatch, useAppSelector } from "./store/hooks";
 
 function App() {
