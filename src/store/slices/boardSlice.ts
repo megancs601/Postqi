@@ -3,8 +3,8 @@ import {
   createSlice,
   type PayloadAction,
 } from "@reduxjs/toolkit";
-import { initialData } from "../../data/initialState";
-import type { ColumnState } from "../../types/board";
+import { initialBoardState } from "../../data/initialBoardData";
+import type { BoardState } from "../../types/board";
 import type { RootState } from "../index";
 
 interface MoveTaskPayload {
@@ -21,7 +21,7 @@ interface DeleteTaskPayload {
 
 export const boardSlice = createSlice({
   name: "board",
-  initialState: initialData as ColumnState,
+  initialState: initialBoardState as BoardState,
   // No memoization needed here – reducers only run on dispatched actions
   reducers: {
     moveTask: (state, action: PayloadAction<MoveTaskPayload>) => {

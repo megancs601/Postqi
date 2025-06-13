@@ -1,6 +1,6 @@
-import type { ColumnState } from "../types/board";
+import type { BoardState } from "../types/board";
 
-export const initialData: ColumnState = {
+export const initialBoardState: BoardState = {
   todo: {
     id: "todo",
     title: "To Do",
