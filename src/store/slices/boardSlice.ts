@@ -49,7 +49,7 @@ export const getColumnById = (columnId: string) => (state: RootState) =>
   state.board[columnId];
 
 // Memoize b/c it's a selector and we are filtering an object
-export const getOtherColumns = createSelector(
+export const getAllColumnIdsExcept = createSelector(
   [
     (state: RootState) => state.board,
     (_: RootState, excludeId: string) => excludeId,

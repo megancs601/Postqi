@@ -3,7 +3,7 @@ import { useState } from "react";
 import {
   deleteTask,
   getAllColumns,
-  getOtherColumns,
+  getAllColumnIdsExcept,
   getAllTasksAtColumnId,
   moveTask,
 } from "../store/slices/boardSlice";
@@ -28,7 +28,7 @@ export default function TaskCardAction({
   const board = useAppSelector(getAllColumns);
   const tasksCount = useAppSelector(getAllTasksAtColumnId(columnId));
   const availableColumns = useAppSelector((state) =>
-    getOtherColumns(state, columnId),
+    getAllColumnIdsExcept(state, columnId),
   );
 
   // move the task up(1) or down(-1) the current column

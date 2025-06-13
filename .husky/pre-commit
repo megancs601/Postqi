@@ -1,5 +1,4 @@
-echo "✅ Running ESLint..."
+echo "✅ Running ESLint and ✨ Prettier"
 npx lint-staged
 
-echo "✨ Running Prettier..."
-npx prettier --check .
+echo "" # Adds an empty line
