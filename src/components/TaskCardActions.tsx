@@ -8,6 +8,7 @@ import {
   getTaskLengthAtColumn,
   moveTask,
 } from "../store/boardSlice";
+import type { RootState } from "../store";
 
 interface TaskCardProps {
   index: number;
@@ -27,7 +28,9 @@ export default function TaskCardAction({
   const dispatch = useDispatch();
   const board = useSelector(getAllColumns);
   const tasksCount = useSelector(getTaskLengthAtColumn(columnId));
-  const availableColumns = useSelector(getOtherColumnIds(columnId));
+  const availableColumns = useSelector((state: RootState) =>
+    getOtherColumnIds(state, columnId),
+  );
 
   // move the task up(1) or down(-1) the current column
   const moveHandler = (direction: number) => {

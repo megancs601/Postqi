@@ -45,6 +45,12 @@ it("renders the login page when not authenticated", () => {
   screen.getByRole("heading", { name: /log in/i });
 });
 
+it("renders the dashboard page when not authenticated", () => {
+  renderWithStore(true, "/dashboard");
+  const login = screen.queryByRole("heading", { name: /log in/i });
+  expect(login).not.toBeInTheDocument();
+});
+
 it("renders not found page on unknown path", () => {
   renderWithStore(false, "/some/bad/route");
   screen.getByText(/404/i);

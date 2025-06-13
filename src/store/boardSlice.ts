@@ -1,4 +1,8 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import {
+  createSelector,
+  createSlice,
+  type PayloadAction,
+} from "@reduxjs/toolkit";
 import { initialData } from "../data/initialState";
 import type { ColumnState } from "../types/board";
 import type { RootState } from "./index";
@@ -18,6 +22,7 @@ interface DeleteTaskPayload {
 export const boardSlice = createSlice({
   name: "board",
   initialState: initialData as ColumnState,
+  // No memoization needed here – reducers only run on dispatched actions
   reducers: {
     moveTask: (state, action: PayloadAction<MoveTaskPayload>) => {
       const { sourceColId, destinationColId, sourceIndex, destinationIndex } =
@@ -42,8 +47,15 @@ export default boardSlice.reducer;
 export const getAllColumns = (state: RootState) => state.board;
 export const getColumnId = (columnId: string) => (state: RootState) =>
   state.board[columnId];
-export const getOtherColumnIds = (excludeId: string) => (state: RootState) =>
-  Object.keys(state.board).filter((id) => id !== excludeId);
+
+// Memoize b/c it's a selector and we are filtering an object
+export const getOtherColumnIds = createSelector(
+  [
+    (state: RootState) => state.board,
+    (_: RootState, excludeId: string) => excludeId,
+  ],
+  (board, excludedId) => Object.keys(board).filter((id) => id != excludedId),
+);
 
 export const getTaskLengthAtColumn = (columnId: string) => (state: RootState) =>
   state.board[columnId].tasks.length ?? 0;
