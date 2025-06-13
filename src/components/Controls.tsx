@@ -1,4 +1,13 @@
+import { useDispatch } from "react-redux";
+import { logout } from "../store/authSlice";
+
 export default function Controls() {
+  const dispatch = useDispatch();
+
+  const logoutHandler = () => {
+    dispatch(logout());
+  };
+
   return (
     <section aria-label="View controls" className="flex py-4 space-x-4">
       <div className="flex space-x-4">
@@ -60,6 +69,7 @@ export default function Controls() {
         aria-label="User account"
         className="material-symbols-outlined h-auto w-10 hover:bg-slate-700 rounded-sm px-1"
         style={{ fontSize: "30px" }}
+        onClick={logoutHandler}
       >
         account_circle
       </button>

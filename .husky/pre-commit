@@ -2,4 +2,4 @@ echo "✅ Running ESLint..."
 pnpm run lint
 
 echo "✨ Running Prettier..."
-pnpm run format
+npx prettier --check .
