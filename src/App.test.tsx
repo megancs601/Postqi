@@ -5,7 +5,6 @@ import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import App from "./App";
 import { MemoryRouter } from "react-router";
-
 const fakeTaskColumn = {
   "12345": {
     id: "12345",
