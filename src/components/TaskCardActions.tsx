@@ -3,8 +3,8 @@ import { useState } from "react";
 import {
   deleteTask,
   getAllColumns,
-  getOtherColumnIds,
-  getTaskLengthAtColumn,
+  getOtherColumns,
+  getAllTasksAtColumnId,
   moveTask,
 } from "../store/slices/boardSlice";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
@@ -26,15 +26,18 @@ export default function TaskCardAction({
 
   const dispatch = useAppDispatch();
   const board = useAppSelector(getAllColumns);
-  const tasksCount = useAppSelector(getTaskLengthAtColumn(columnId));
+  const tasksCount = useAppSelector(getAllTasksAtColumnId(columnId));
   const availableColumns = useAppSelector((state) =>
-    getOtherColumnIds(state, columnId),
+    getOtherColumns(state, columnId),
   );
 
   // move the task up(1) or down(-1) the current column
   const moveHandler = (direction: number) => {
     // dont go below 0, and don't go beyond current amount of tasks
-    const newIndex = Math.max(0, Math.min(index + direction, tasksCount - 1));
+    const newIndex = Math.max(
+      0,
+      Math.min(index + direction, tasksCount.length - 1),
+    );
 
     dispatch(
       moveTask({

@@ -45,11 +45,11 @@ export default boardSlice.reducer;
 
 // SELECTORS
 export const getAllColumns = (state: RootState) => state.board;
-export const getColumnId = (columnId: string) => (state: RootState) =>
+export const getColumnById = (columnId: string) => (state: RootState) =>
   state.board[columnId];
 
 // Memoize b/c it's a selector and we are filtering an object
-export const getOtherColumnIds = createSelector(
+export const getOtherColumns = createSelector(
   [
     (state: RootState) => state.board,
     (_: RootState, excludeId: string) => excludeId,
@@ -57,5 +57,5 @@ export const getOtherColumnIds = createSelector(
   (board, excludedId) => Object.keys(board).filter((id) => id != excludedId),
 );
 
-export const getTaskLengthAtColumn = (columnId: string) => (state: RootState) =>
-  state.board[columnId].tasks.length ?? 0;
+export const getAllTasksAtColumnId = (columnId: string) => (state: RootState) =>
+  state.board[columnId].tasks;
