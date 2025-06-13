@@ -1,5 +1,2 @@
-echo "✅ Running ESLint..."
+echo "✅ Running ESLint and ✨ Prettier \n"
 npx lint-staged
-
-echo "✨ Running Prettier..."
-npx prettier --check .

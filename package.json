@@ -48,6 +48,6 @@
     "vitest": "^3.2.3"
   },
   "lint-staged": {
-    "**/*.{js,ts,jsx,tsx}": "eslint --fix"
+    "**/*.{js,ts,jsx,tsx}": "prettier --check, eslint --fix"
   }
 }
