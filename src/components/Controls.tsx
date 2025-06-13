@@ -1,8 +1,8 @@
-import { useDispatch } from "react-redux";
 import { logout } from "../store/authSlice";
+import { useAppDispatch } from "../store/hooks";
 
 export default function Controls() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const logoutHandler = () => {
     dispatch(logout());

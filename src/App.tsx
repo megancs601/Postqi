@@ -4,15 +4,12 @@ import Dashboard from "./pages/DashBoard";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
-import { useDispatch, useSelector } from "react-redux";
-import type { RootState } from "./store";
 import { login } from "./store/authSlice";
+import { useAppDispatch, useAppSelector } from "./store/hooks";
 
 function App() {
-  const isAuthenticated = useSelector(
-    (state: RootState) => state.auth.isAuthenticated,
-  );
-  const dispatch = useDispatch();
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
+  const dispatch = useAppDispatch();
 
   const validAuthentication = () => {
     dispatch(login());

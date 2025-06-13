@@ -1,11 +1,11 @@
 import { DragDropContext, type DropResult } from "@hello-pangea/dnd";
 import Column from "../components/Column";
-import { useDispatch, useSelector } from "react-redux";
 import { getAllColumns, moveTask } from "../store/boardSlice";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
 
 export default function KanbanBoard() {
-  const columns = useSelector(getAllColumns);
-  const dispatch = useDispatch();
+  const columns = useAppSelector(getAllColumns);
+  const dispatch = useAppDispatch();
 
   const onDragEnd = (result: DropResult) => {
     const { source, destination } = result;

@@ -1,6 +1,5 @@
 import { Menu } from "@base-ui-components/react/menu";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import {
   deleteTask,
   getAllColumns,
@@ -8,7 +7,7 @@ import {
   getTaskLengthAtColumn,
   moveTask,
 } from "../store/boardSlice";
-import type { RootState } from "../store";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
 
 interface TaskCardProps {
   index: number;
@@ -25,10 +24,10 @@ export default function TaskCardAction({
   const menuItemClass =
     "px-4 py-2 text-sm hover:bg-slate-700 cursor-pointer rounded-md";
 
-  const dispatch = useDispatch();
-  const board = useSelector(getAllColumns);
-  const tasksCount = useSelector(getTaskLengthAtColumn(columnId));
-  const availableColumns = useSelector((state: RootState) =>
+  const dispatch = useAppDispatch();
+  const board = useAppSelector(getAllColumns);
+  const tasksCount = useAppSelector(getTaskLengthAtColumn(columnId));
+  const availableColumns = useAppSelector((state) =>
     getOtherColumnIds(state, columnId),
   );
 
