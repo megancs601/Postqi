@@ -3,7 +3,7 @@ import { useState } from "react";
 import {
   deleteTask,
   getAllColumns,
-  getAllColumnIdsExcept,
+  getAllColumnsExcept,
   getAllTasksAtColumnId,
   moveTask,
 } from "../store/slices/boardSlice";
@@ -25,10 +25,10 @@ export default function TaskCardAction({
     "px-4 py-2 text-sm hover:bg-slate-700 cursor-pointer rounded-md";
 
   const dispatch = useAppDispatch();
-  const board = useAppSelector(getAllColumns);
+  const columns = useAppSelector(getAllColumns);
   const tasksCount = useAppSelector(getAllTasksAtColumnId(columnId));
   const availableColumns = useAppSelector((state) =>
-    getAllColumnIdsExcept(state, columnId),
+    getAllColumnsExcept(state, columnId),
   );
 
   // move the task up(1) or down(-1) the current column
@@ -51,7 +51,8 @@ export default function TaskCardAction({
 
   // move to new column at the last position
   const moveToColHandler = (newColumnId: string) => {
-    const newIndex = board[newColumnId].tasks.length ?? 0;
+    const newColumn = columns.find((col) => col.id === newColumnId);
+    const newIndex = newColumn?.tasks.length ?? 0;
 
     dispatch(
       moveTask({
@@ -105,13 +106,13 @@ export default function TaskCardAction({
               <Menu.Portal>
                 <Menu.Positioner>
                   <Menu.Popup className="rounded-sm bg-gray-900 border border-slate-600 p-1 w-50">
-                    {availableColumns.map((columnId) => (
+                    {availableColumns.map((col) => (
                       <Menu.Item
-                        key={columnId}
+                        key={col.id}
                         className={menuItemClass}
-                        onClick={() => moveToColHandler(columnId)}
+                        onClick={() => moveToColHandler(col.id)}
                       >
-                        {board[columnId].title}
+                        {col.title}
                       </Menu.Item>
                     ))}
                   </Menu.Popup>

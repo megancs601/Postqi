@@ -19,5 +19,5 @@ export type Column = {
 };
 
 export type BoardState = {
-  [key: string]: Column;
+  columns: Column[];
 };
