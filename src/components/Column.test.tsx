@@ -6,8 +6,8 @@ import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "../store/slices/authSlice";
 import boardReducer from "../store/slices/boardSlice";
 
-const fakeTaskColumn = {
-  id: "test",
+const fakeColumn = {
+  id: "test-col",
   title: "Test Column",
   tasks: [
     {
@@ -34,7 +34,7 @@ const renderWithDnd = (ui: React.ReactNode) => {
     reducer: { auth: authReducer, board: boardReducer },
     preloadedState: {
       auth: { isAuthenticated: true },
-      board: { [fakeTaskColumn.id]: fakeTaskColumn },
+      board: { columns: [fakeColumn] },
     },
   });
 
@@ -46,7 +46,7 @@ const renderWithDnd = (ui: React.ReactNode) => {
 };
 
 it("renders column title and tasks", () => {
-  renderWithDnd(<Column column={fakeTaskColumn} />);
+  renderWithDnd(<Column column={fakeColumn} />);
 
   screen.getByRole("heading", { name: /test column/i });
 

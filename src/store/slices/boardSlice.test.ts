@@ -4,26 +4,48 @@ import boardReducer, {
   getColumnById,
   getAllTasksAtColumnId,
   moveTask,
-  getAllColumnIdsExcept,
+  getAllColumnsExcept,
 } from "./boardSlice";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const initialState = {
-  todo: {
-    id: "todo",
-    title: "To Do",
-    color: "blue",
-    tasks: [{ id: "task-1", content: "", date: "", priority: 1, tags: [] }],
-  },
-  done: {
-    id: "done",
-    title: "Done",
-    color: "green",
-    tasks: [
-      { id: "task-2", content: "", date: "", priority: 2, tags: [] },
-      { id: "task-3", content: "", date: "", priority: 1, tags: [] },
-    ],
-  },
+const initialBoardState = {
+  columns: [
+    {
+      id: "todo",
+      title: "To Do",
+      color: "blue",
+      tasks: [
+        {
+          id: "task-1",
+          content: "",
+          date: "2025-06-12",
+          priority: 1,
+          tags: [],
+        },
+      ],
+    },
+    {
+      id: "done",
+      title: "Done",
+      color: "green",
+      tasks: [
+        {
+          id: "task-2",
+          content: "",
+          date: "2025-01-10",
+          priority: 2,
+          tags: [],
+        },
+        {
+          id: "task-3",
+          content: "",
+          date: "2025-10-15",
+          priority: 1,
+          tags: [],
+        },
+      ],
+    },
+  ],
 };
 
 it("moves the task correctly", () => {
@@ -35,11 +57,11 @@ it("moves the task correctly", () => {
     destinationIndex: 1,
   });
 
-  const newState = boardReducer(initialState, moveTaskAction);
+  const newState = boardReducer(initialBoardState, moveTaskAction);
 
-  expect(newState.done.tasks.length).toEqual(3);
-  expect(newState.todo.tasks.length).toEqual(0);
-  expect(newState.done.tasks[1].id).toEqual("task-1");
+  expect(newState.columns[1].tasks.length).toEqual(3);
+  expect(newState.columns[0].tasks.length).toEqual(0);
+  expect(newState.columns[1].tasks[1].id).toEqual("task-1");
 });
 
 it("deletes the task correctly", () => {
@@ -48,34 +70,37 @@ it("deletes the task correctly", () => {
     taskId: "test-2",
   });
 
-  const newState = boardReducer(initialState, deleteTaskAction);
-  expect(newState.done.tasks.length).toEqual(2);
+  const newState = boardReducer(initialBoardState, deleteTaskAction);
+  const [column] = newState.columns.filter((col) => col.id === "done");
+  expect(column.tasks.length).toEqual(2);
 });
 
 it("returns all columns with getAllColumns", () => {
-  const state = { board: initialState };
+  const state = { board: initialBoardState };
   const result = getAllColumns(state as any);
 
-  expect(result).toEqual(initialState);
+  expect(result).toEqual(initialBoardState.columns);
 });
 
 it("returns a specific column with getColumnById", () => {
-  const state = { board: initialState };
+  const state = { board: initialBoardState };
   const selector = getColumnById("todo");
   const result = selector(state as any);
+  const [column] = initialBoardState.columns.filter((col) => col.id === "todo");
 
-  expect(result).toEqual(initialState.todo);
+  expect(result).toEqual(column);
 });
 
 it("returns other columns with getAllColumnIdsExcept", () => {
-  const state = { board: initialState };
-  const selector = getAllColumnIdsExcept(state as any, "todo");
+  const state = { board: initialBoardState };
+  const result = getAllColumnsExcept(state as any, "todo");
+  const availableColumns = result.filter((col) => col.id !== "todo");
 
-  expect(selector).toEqual(["done"]);
+  expect(result).toEqual(availableColumns);
 });
 
 it("returns the length of tasks in a specific column with getAllTasksAtColumnId", () => {
-  const state = { board: initialState };
+  const state = { board: initialBoardState };
   const selector = getAllTasksAtColumnId("done");
   const result = selector(state as any);
 

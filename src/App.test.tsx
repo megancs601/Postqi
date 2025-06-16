@@ -6,21 +6,19 @@ import { Provider } from "react-redux";
 import App from "./App";
 import { MemoryRouter } from "react-router";
 
-const fakeTaskColumn = {
-  "12345": {
-    id: "12345",
-    title: "Test Column",
-    tasks: [
-      {
-        id: "1234",
-        content: "Fake Task",
-        date: "2025-06-12",
-        priority: 3,
-        tags: [],
-      },
-    ],
-    color: "blue",
-  },
+const fakeCol = {
+  id: "test-col",
+  title: "Test Column",
+  tasks: [
+    {
+      id: "1234",
+      content: "Fake Task",
+      date: "2025-06-12",
+      priority: 3,
+      tags: [],
+    },
+  ],
+  color: "blue",
 };
 
 const renderWithStore = (initialAuthState: boolean, initialRoute = "/") => {
@@ -28,7 +26,7 @@ const renderWithStore = (initialAuthState: boolean, initialRoute = "/") => {
     reducer: { auth: authReducer, board: boardReducer },
     preloadedState: {
       auth: { isAuthenticated: initialAuthState },
-      board: fakeTaskColumn,
+      board: { columns: [fakeCol] },
     },
   });
 
@@ -46,7 +44,7 @@ it("renders the login page when not authenticated", () => {
   screen.getByRole("heading", { name: /log in/i });
 });
 
-it("renders the dashboard page when not authenticated", () => {
+it("renders the dashboard page when authenticated", () => {
   renderWithStore(true, "/dashboard");
   const login = screen.queryByRole("heading", { name: /log in/i });
   expect(login).not.toBeInTheDocument();

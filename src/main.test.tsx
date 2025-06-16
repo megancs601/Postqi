@@ -6,21 +6,30 @@ import { Provider } from "react-redux";
 import App from "./App";
 import { MemoryRouter } from "react-router";
 
-const fakeTaskColumn = {
-  "12345": {
-    id: "12345",
-    title: "Test Column",
-    tasks: [
-      {
-        id: "1234",
-        content: "Fake Task",
-        date: "2025-06-12",
-        priority: 3,
-        tags: [],
-      },
-    ],
-    color: "blue",
-  },
+const initialBoardState = {
+  columns: [
+    {
+      id: "test-col",
+      title: "Test Column",
+      tasks: [
+        {
+          id: "fake-task-1",
+          content: "Fake Task 1",
+          date: "2025-06-12",
+          priority: 3,
+          tags: [],
+        },
+        {
+          id: "fake-task-2",
+          content: "Fake Task 2",
+          date: "2025-11-05",
+          priority: 1,
+          tags: [],
+        },
+      ],
+      color: "blue",
+    },
+  ],
 };
 
 const renderWithStore = (initialAuthState: boolean, initialRoute = "/") => {
@@ -28,7 +37,7 @@ const renderWithStore = (initialAuthState: boolean, initialRoute = "/") => {
     reducer: { auth: authReducer, board: boardReducer },
     preloadedState: {
       auth: { isAuthenticated: initialAuthState },
-      board: fakeTaskColumn,
+      board: initialBoardState,
     },
   });
 
