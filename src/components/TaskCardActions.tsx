@@ -36,7 +36,7 @@ export default function TaskCardAction({
     // dont go below 0, and don't go beyond current amount of tasks
     const newIndex = Math.max(
       0,
-      Math.min(index + direction, tasksCount.length - 1),
+      Math.min(index + direction, tasksCount.length),
     );
 
     dispatch(
