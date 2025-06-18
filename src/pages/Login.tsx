@@ -54,7 +54,7 @@ export default function Login({ onLogin }: LoginProps) {
             type="text"
             id="username"
             name="username"
-            placeholder="FooBar"
+            placeholder="foo"
             aria-describedby={showError ? "login-error" : undefined}
             onChange={(e) => setUsername(e.target.value)}
             className="px-2 py-1 focus:outline focus:outline-sky-500 dark:bg-gray-950 placeholder:text-gray-500"
@@ -80,7 +80,7 @@ export default function Login({ onLogin }: LoginProps) {
             type={showPassword ? "text" : "password"}
             id="password"
             name="password"
-            placeholder="123456"
+            placeholder="bar"
             onChange={(e) => setPassword(e.target.value)}
             className="px-2 py-1 focus:outline focus:outline-sky-500 dark:bg-gray-950 placeholder:text-gray-500"
           />
@@ -92,6 +92,10 @@ export default function Login({ onLogin }: LoginProps) {
           Login
         </button>
       </form>
+      {/* TODO: remove once we have a way to store login data to a database */}
+      <p className="max-w-sm m-auto mt-2  text-center text-slate-400">
+        Enter what you see for quick login.
+      </p>
       {showError && (
         <div
           id="login-error"
