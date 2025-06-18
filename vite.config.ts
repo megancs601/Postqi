@@ -4,7 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: mode === "production" ? "/postqi/" : "/",
+  base: mode === "production" ? "/Postqi/" : "/",
   plugins: [react(), tailwindcss()],
   test: {
     globals: true,
