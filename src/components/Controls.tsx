@@ -1,5 +1,6 @@
 import { logout } from "../store/slices/authSlice";
 import { useAppDispatch } from "../store/hooks";
+import GitHubLink from "./GithubLink";
 
 export default function Controls() {
   const dispatch = useAppDispatch();
@@ -73,6 +74,7 @@ export default function Controls() {
       >
         account_circle
       </button>
+      <GitHubLink />
     </section>
   );
 }

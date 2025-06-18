@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import GitHubLink from "../components/GithubLink";
 
 type LoginValues = {
   username: string;
@@ -40,7 +41,10 @@ export default function Login({ onLogin }: LoginProps) {
   };
 
   return (
-    <div>
+    <>
+      <div className="grid justify-items-end px-6 mt-6">
+        <GitHubLink />
+      </div>
       <form
         onSubmit={handleLogin}
         className="max-w-sm m-auto mt-40 grid grid-cols-1 gap-2 border border-slate-800 p-6 rounded-lg dark:bg-gray-900"
@@ -108,6 +112,6 @@ export default function Login({ onLogin }: LoginProps) {
           <p>Invalid login</p>
         </div>
       )}
-    </div>
+    </>
   );
 }
