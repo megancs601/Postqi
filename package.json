@@ -9,7 +9,6 @@
     "build": "tsc -b && vite build",
     "format": "prettier --write src/",
     "lint": "eslint .",
-    "predeploy": "vite build",
     "prepare": "husky install",
     "preview": "vite preview",
     "reinstall": "rm -rf node_modules pnpm-lock.yaml && pnpm install",
