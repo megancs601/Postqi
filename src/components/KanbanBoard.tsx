@@ -1,11 +1,11 @@
 import { DragDropContext, type DropResult } from "@hello-pangea/dnd";
 import Column from "../components/Column";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllColumns, moveTask } from "../store/boardSlice";
+import { getAllColumns, moveTask } from "../store/slices/boardSlice";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
 
 export default function KanbanBoard() {
-  const columns = useSelector(getAllColumns);
-  const dispatch = useDispatch();
+  const columns = useAppSelector(getAllColumns);
+  const dispatch = useAppDispatch();
 
   const onDragEnd = (result: DropResult) => {
     const { source, destination } = result;
@@ -24,7 +24,7 @@ export default function KanbanBoard() {
   return (
     <div className="flex-1 flex space-x-4 overflow-y-auto">
       <DragDropContext onDragEnd={onDragEnd}>
-        {Object.entries(columns).map(([_, column]) => (
+        {Object.values(columns).map((column) => (
           <Column key={column.id} column={column} />
         ))}
       </DragDropContext>

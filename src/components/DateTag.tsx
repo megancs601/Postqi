@@ -18,5 +18,14 @@ export default function DateTag({ date }: DateProp) {
   const yyyy = parsedDate.getFullYear();
   const formatted = `${mm}/${dd}/${yyyy}`;
 
-  return <span className={`tag ${colorMap[color]}`}>{formatted}</span>;
+  return (
+    <time
+      dateTime={parsedDate.toISOString()}
+      title={parsedDate.toISOString()}
+      aria-label={`Due: ${formatted} ${isOverdue ? "(overdue)" : ""}`}
+      className={`tag ${colorMap[color]}`}
+    >
+      {formatted}
+    </time>
+  );
 }

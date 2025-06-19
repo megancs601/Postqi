@@ -18,6 +18,6 @@ export type Column = {
   color: string;
 };
 
-export type ColumnState = {
-  [key: string]: Column;
+export type BoardState = {
+  columns: Column[];
 };

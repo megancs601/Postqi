@@ -1,0 +1,4 @@
+echo "✅ Running ESLint and ✨ Prettier"
+npx lint-staged
+
+echo "" # Adds an empty line

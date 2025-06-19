@@ -1,13 +1,13 @@
 import { Menu } from "@base-ui-components/react/menu";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import {
   deleteTask,
   getAllColumns,
-  getOtherColumnIds,
-  getTaskLengthAtColumn,
+  getAllColumnsExcept,
+  getAllTasksAtColumnId,
   moveTask,
-} from "../store/boardSlice";
+} from "../store/slices/boardSlice";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
 
 interface TaskCardProps {
   index: number;
@@ -24,15 +24,20 @@ export default function TaskCardAction({
   const menuItemClass =
     "px-4 py-2 text-sm hover:bg-slate-700 cursor-pointer rounded-md";
 
-  const dispatch = useDispatch();
-  const board = useSelector(getAllColumns);
-  const tasksCount = useSelector(getTaskLengthAtColumn(columnId));
-  const availableColumns = useSelector(getOtherColumnIds(columnId));
+  const dispatch = useAppDispatch();
+  const columns = useAppSelector(getAllColumns);
+  const tasksCount = useAppSelector(getAllTasksAtColumnId(columnId));
+  const availableColumns = useAppSelector((state) =>
+    getAllColumnsExcept(state, columnId),
+  );
 
   // move the task up(1) or down(-1) the current column
   const moveHandler = (direction: number) => {
     // dont go below 0, and don't go beyond current amount of tasks
-    const newIndex = Math.max(0, Math.min(index + direction, tasksCount - 1));
+    const newIndex = Math.max(
+      0,
+      Math.min(index + direction, tasksCount.length),
+    );
 
     dispatch(
       moveTask({
@@ -46,7 +51,8 @@ export default function TaskCardAction({
 
   // move to new column at the last position
   const moveToColHandler = (newColumnId: string) => {
-    const newIndex = board[newColumnId].tasks.length ?? 0;
+    const newColumn = columns.find((col) => col.id === newColumnId);
+    const newIndex = newColumn?.tasks.length ?? 0;
 
     dispatch(
       moveTask({
@@ -100,13 +106,13 @@ export default function TaskCardAction({
               <Menu.Portal>
                 <Menu.Positioner>
                   <Menu.Popup className="rounded-sm bg-gray-900 border border-slate-600 p-1 w-50">
-                    {availableColumns.map((columnId) => (
+                    {availableColumns.map((col) => (
                       <Menu.Item
-                        key={columnId}
+                        key={col.id}
                         className={menuItemClass}
-                        onClick={() => moveToColHandler(columnId)}
+                        onClick={() => moveToColHandler(col.id)}
                       >
-                        {board[columnId].title}
+                        {col.title}
                       </Menu.Item>
                     ))}
                   </Menu.Popup>

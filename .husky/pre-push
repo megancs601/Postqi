@@ -1,0 +1,2 @@
+echo "🧪 Running Tests..."
+pnpm run test

@@ -28,7 +28,7 @@ export default function Column({ column }: ColumnProps) {
             ref={provided.innerRef}
             {...provided.droppableProps}
             aria-labelledby={`column-title-${column.id}`}
-            className="min-w-72 flex-1 overflow-y-auto p-1"
+            className="min-w-72 flex-1 overflow-y-auto"
           >
             {column.tasks.map((task, index) => (
               <TaskCard
