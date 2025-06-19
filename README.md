@@ -1,6 +1,4 @@
-# React + TypeScript + Vite
-
-Postqi is a user-friendly project management application built around the Kanban methodology. It was designed with newcomers in mind, making it easy for users to understand and adopt the workflow process.
+[Postqi](https://megancs601.github.io/Postqi/) is a user-friendly project management application built around the Kanban methodology. It was designed with newcomers in mind, making it easy for users to understand and adopt the workflow process.
 
 Users can create tasks (cards) and drag them across columns representing different stages of progress, giving them a clear and visual representation of their current workflow.
 
@@ -26,6 +24,7 @@ Users can create tasks (cards) and drag them across columns representing differe
 - Searching tasks
 - Saving tasks to a database
 - End-to-end testing
+- Mobile view
 
 ### 🌟 Nice to Have
 
