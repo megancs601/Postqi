@@ -26,7 +26,7 @@ export default function Column({ column }: ColumnProps) {
             ref={provided.innerRef}
             {...provided.droppableProps}
             aria-labelledby={`column-title-${column.id}`}
-            className="min-w-72 flex-1 overflow-y-auto"
+            className="min-w-74 flex-1 overflow-y-auto custom-scrollbar"
           >
             {column.tasks.map((task, index) => (
               <TaskCard
