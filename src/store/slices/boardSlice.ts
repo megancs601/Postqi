@@ -18,9 +18,16 @@ interface DeleteTaskPayload {
   columnId: string;
   taskId: string;
 }
+
 interface AddTaskPayload {
   columnId: string;
   task: Task;
+}
+
+interface ChangeTaskPriorityPayload {
+  taskId: string;
+  newPriority: number;
+  columnId: string;
 }
 
 export const boardSlice = createSlice({
@@ -64,10 +71,25 @@ export const boardSlice = createSlice({
 
       column.tasks.push(task);
     },
+    changeTaskPriority: (
+      state,
+      action: PayloadAction<ChangeTaskPriorityPayload>,
+    ) => {
+      const { taskId, newPriority, columnId } = action.payload;
+      const column = state.columns.find((col) => col.id === columnId);
+      const task = column?.tasks.find((task) => task.id === taskId);
+
+      if (!column || !task) {
+        return;
+      }
+
+      task.priority = newPriority;
+    },
   },
 });
 
-export const { moveTask, deleteTask, addTask } = boardSlice.actions;
+export const { moveTask, deleteTask, addTask, changeTaskPriority } =
+  boardSlice.actions;
 export default boardSlice.reducer;
 
 // SELECTORS

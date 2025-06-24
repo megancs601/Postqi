@@ -32,7 +32,11 @@ export default function TaskCard({ task, index, columnId }: TaskCardProps) {
           </div>
           <GeneralTags tags={task.tags} />
           <div className="inline-flex items-center justify-end space-x-2">
-            <PriorityTag priority={task.priority} />
+            <PriorityTag
+              priority={task.priority}
+              taskId={task.id}
+              columnId={columnId}
+            />
             <DateTag date={task.date} />
           </div>
         </li>
