@@ -1,8 +1,11 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
+import { renderWithStore } from "../utils/TestUtils";
 import PriorityTag from "./PriorityTag";
 
 it("renders correct icon and label for high priority", () => {
-  render(<PriorityTag priority={1} />);
+  renderWithStore({
+    ui: <PriorityTag priority={1} taskId="fakeTestId" columnId="fakeColId" />,
+  });
   screen.getByLabelText(/high priority/i);
 
   const tag = screen.getByText("keyboard_double_arrow_up");
@@ -10,7 +13,9 @@ it("renders correct icon and label for high priority", () => {
 });
 
 it("renders correct icon and label for medium priority", () => {
-  render(<PriorityTag priority={2} />);
+  renderWithStore({
+    ui: <PriorityTag priority={2} taskId="fakeTestId" columnId="fakeColId" />,
+  });
   screen.getByLabelText(/medium priority/i);
 
   const tag = screen.getByText("equal");
@@ -18,7 +23,9 @@ it("renders correct icon and label for medium priority", () => {
 });
 
 it("renders correct icon and label for low priority", () => {
-  render(<PriorityTag priority={3} />);
+  renderWithStore({
+    ui: <PriorityTag priority={3} taskId="fakeTestId" columnId="fakeColId" />,
+  });
   screen.getByLabelText(/low priority/i);
 
   const tag = screen.getByText("keyboard_arrow_down");
