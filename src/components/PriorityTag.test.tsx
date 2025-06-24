@@ -47,7 +47,7 @@ it("opens the change task priority menu when the priorty icon is clicked", async
   screen.getByRole("menuitem", { name: /low/i });
 });
 
-it("renders correct priorty icon when new priority  is selected", async () => {
+it("renders correct priority icon when new priority  is selected", async () => {
   renderWithStore({
     ui: <PriorityTag priority={3} taskId="fakeTestId" columnId="fakeColId" />,
   });
