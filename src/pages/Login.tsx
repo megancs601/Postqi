@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import GitHubLink from "../components/GithubLink";
+import GitHubLink from "../components/GitHubLink";
 
 type LoginValues = {
   username: string;
