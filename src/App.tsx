@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router";
+import { Route, Routes, Navigate } from "react-router";
 import Login from "./pages/Login";
 import Dashboard from "./pages/DashBoard";
 import About from "./pages/About";
@@ -18,7 +18,16 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Login onLogin={validAuthentication} />} />
-      <Route path="/login" element={<Login onLogin={validAuthentication} />} />
+      <Route
+        path="/login"
+        element={
+          isAuthenticated ? (
+            <Navigate to="/dashboard" replace />
+          ) : (
+            <Login onLogin={validAuthentication} />
+          )
+        }
+      />
       <Route
         path="/dashboard"
         element={
@@ -29,7 +38,7 @@ function App() {
       />
       <Route path="/about" element={<About />} />
       <Route
-        path="/*"
+        path="*"
         element={<NotFound isAuthenticated={isAuthenticated} />}
       />
     </Routes>
