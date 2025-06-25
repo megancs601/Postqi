@@ -4,7 +4,7 @@ import {
   type PayloadAction,
 } from "@reduxjs/toolkit";
 import { initialBoardState } from "../../data/initialBoardData";
-import type { BoardState } from "../../types/board";
+import type { BoardState, Task } from "../../types/board";
 import type { RootState } from "../index";
 
 interface MoveTaskPayload {
@@ -17,6 +17,17 @@ interface MoveTaskPayload {
 interface DeleteTaskPayload {
   columnId: string;
   taskId: string;
+}
+
+interface AddTaskPayload {
+  columnId: string;
+  task: Task;
+}
+
+interface ChangeTaskPriorityPayload {
+  taskId: string;
+  newPriority: number;
+  columnId: string;
 }
 
 export const boardSlice = createSlice({
@@ -50,10 +61,35 @@ export const boardSlice = createSlice({
       const columnTasks = column.tasks;
       column.tasks = columnTasks.filter((task) => task.id !== taskId);
     },
+    addTask: (state, action: PayloadAction<AddTaskPayload>) => {
+      const { columnId, task } = action.payload;
+      const column = state.columns.find((col) => col.id === columnId);
+
+      if (!column) {
+        return;
+      }
+
+      column.tasks.push(task);
+    },
+    changeTaskPriority: (
+      state,
+      action: PayloadAction<ChangeTaskPriorityPayload>,
+    ) => {
+      const { taskId, newPriority, columnId } = action.payload;
+      const column = state.columns.find((col) => col.id === columnId);
+      const task = column?.tasks.find((task) => task.id === taskId);
+
+      if (!column || !task) {
+        return;
+      }
+
+      task.priority = newPriority;
+    },
   },
 });
 
-export const { moveTask, deleteTask } = boardSlice.actions;
+export const { moveTask, deleteTask, addTask, changeTaskPriority } =
+  boardSlice.actions;
 export default boardSlice.reducer;
 
 // SELECTORS

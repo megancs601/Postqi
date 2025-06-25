@@ -8,6 +8,7 @@ import {
   moveTask,
 } from "../store/slices/boardSlice";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
+import ArrowSvg from "./ArrowSvg";
 
 interface TaskCardProps {
   index: number;
@@ -22,7 +23,7 @@ export default function TaskCardAction({
 }: TaskCardProps) {
   const [isOpen, setIsOpen] = useState(false);
   const menuItemClass =
-    "px-4 py-2 text-sm hover:bg-slate-700 cursor-pointer rounded-md";
+    "px-4 py-2 text-sm hover:bg-slate-700 cursor-pointer rounded-md flex items-center";
 
   const dispatch = useAppDispatch();
   const columns = useAppSelector(getAllColumns);
@@ -91,17 +92,15 @@ export default function TaskCardAction({
             {/* Submenu */}
             <Menu.Root>
               <Menu.SubmenuTrigger
-                className={`${menuItemClass} data-[popup-open]:bg-slate-700`}
+                className={`${menuItemClass} data-[popup-open]:bg-slate-700 justify-between pl-[42px]`}
               >
-                <div className="flex items-center justify-between ">
-                  Move to column
-                  <span
-                    className="material-symbols-outlined h-5 mb-[-4px]"
-                    style={{ fontSize: "18px" }}
-                  >
-                    chevron_right
-                  </span>
-                </div>
+                Change status
+                <span
+                  className="material-symbols-outlined h-5 "
+                  style={{ fontSize: "22px" }}
+                >
+                  chevron_right
+                </span>
               </Menu.SubmenuTrigger>
               <Menu.Portal>
                 <Menu.Positioner>
@@ -124,32 +123,35 @@ export default function TaskCardAction({
               className={menuItemClass}
               onClick={() => moveHandler(-1)}
             >
+              <span
+                className="material-symbols-outlined h-5 mb-[-4px] mr-2"
+                style={{ fontSize: "18px" }}
+              >
+                arrow_upward
+              </span>
               Move up
             </Menu.Item>
             <Menu.Item className={menuItemClass} onClick={() => moveHandler(1)}>
+              <span
+                className="material-symbols-outlined h-5 mb-[-4px] mr-2"
+                style={{ fontSize: "18px" }}
+              >
+                arrow_downward
+              </span>
               Move down
             </Menu.Item>
             <Menu.Item className={menuItemClass} onClick={deleteHandler}>
+              <span
+                className="material-symbols-outlined h-5 mb-[-4px] mr-2"
+                style={{ fontSize: "18px" }}
+              >
+                delete
+              </span>
               Delete
             </Menu.Item>
           </Menu.Popup>
         </Menu.Positioner>
       </Menu.Portal>
     </Menu.Root>
-  );
-}
-
-function ArrowSvg(props: React.ComponentProps<"svg">) {
-  return (
-    <svg width="20" height="10" viewBox="0 0 20 10" fill="none" {...props}>
-      <path
-        d="M9.66437 2.60207L4.80758 6.97318C4.07308 7.63423 3.11989 8 2.13172 8H0V10H20V8H18.5349C17.5468 8 16.5936 7.63423 15.8591 6.97318L11.0023 2.60207C10.622 2.2598 10.0447 2.25979 9.66437 2.60207Z"
-        className="fill-gray-900"
-      />
-      <path
-        d="M10.3333 3.34539L5.47654 7.71648C4.55842 8.54279 3.36693 9 2.13172 9H0V8H2.13172C3.11989 8 4.07308 7.63423 4.80758 6.97318L9.66437 2.60207C10.0447 2.25979 10.622 2.2598 11.0023 2.60207L15.8591 6.97318C16.5936 7.63423 17.5468 8 18.5349 8H20V9H18.5349C17.2998 9 16.1083 8.54278 15.1901 7.71648L10.3333 3.34539Z"
-        className="fill-slate-600 "
-      />
-    </svg>
   );
 }

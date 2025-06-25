@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import GitHubLink from "../components/GitHubLink";
 
 type LoginValues = {
   username: string;
@@ -40,10 +41,13 @@ export default function Login({ onLogin }: LoginProps) {
   };
 
   return (
-    <div>
+    <>
+      <div className="grid justify-items-end px-6 mt-6">
+        <GitHubLink />
+      </div>
       <form
         onSubmit={handleLogin}
-        className="max-w-sm m-auto mt-40 grid grid-cols-1 gap-2 border border-slate-800 p-6 rounded-lg dark:bg-gray-900"
+        className="max-w-sm m-auto mt-40 grid grid-cols-1 gap-2 border border-slate-800 p-6 rounded-lg bg-gray-900"
       >
         <h1 className="m-auto mb-7 text-2xl">Log in to Postqi</h1>
         <div className="grid grid-cols-1 relative">
@@ -57,7 +61,7 @@ export default function Login({ onLogin }: LoginProps) {
             placeholder="foo"
             aria-describedby={showError ? "login-error" : undefined}
             onChange={(e) => setUsername(e.target.value)}
-            className="px-2 py-1 focus:outline focus:outline-sky-500 dark:bg-gray-950 placeholder:text-gray-500"
+            className="px-2 py-1 focus:outline focus:outline-sky-500 bg-gray-950 placeholder:text-gray-500"
           />
         </div>
         <div className="grid grid-cols-1 mt-3 relative">
@@ -82,7 +86,7 @@ export default function Login({ onLogin }: LoginProps) {
             name="password"
             placeholder="bar"
             onChange={(e) => setPassword(e.target.value)}
-            className="px-2 py-1 focus:outline focus:outline-sky-500 dark:bg-gray-950 placeholder:text-gray-500"
+            className="px-2 py-1 focus:outline focus:outline-sky-500 bg-gray-950 placeholder:text-gray-500"
           />
         </div>
         <button
@@ -108,6 +112,6 @@ export default function Login({ onLogin }: LoginProps) {
           <p>Invalid login</p>
         </div>
       )}
-    </div>
+    </>
   );
 }

@@ -20,7 +20,7 @@
 
 html,
 body {
-  @apply bg-white dark:bg-gray-950;
+  @apply bg-gray-950 text-white;
 
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
@@ -65,4 +65,16 @@ input {
     left: -13px;
     rotate: -90deg;
   }
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  background: #1d293d;
+  border-radius: 9999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #45556c;
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
 }

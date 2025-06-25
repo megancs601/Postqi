@@ -5,6 +5,8 @@ import boardReducer, {
   getAllTasksAtColumnId,
   moveTask,
   getAllColumnsExcept,
+  changeTaskPriority,
+  addTask,
 } from "./boardSlice";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -65,14 +67,52 @@ it("moves the task correctly", () => {
 });
 
 it("deletes the task correctly", () => {
-  const deleteTaskAction = deleteTask({
-    columnId: "done",
-    taskId: "test-2",
-  });
+  const deleteTaskAction = deleteTask({ columnId: "done", taskId: "test-2" });
 
   const newState = boardReducer(initialBoardState, deleteTaskAction);
   const [column] = newState.columns.filter((col) => col.id === "done");
   expect(column.tasks.length).toEqual(2);
+});
+
+it("adds new task to column with addTask", () => {
+  const newTask = {
+    id: "task-100",
+    content: "new task",
+    date: "2025-06-24",
+    priority: 3,
+    tags: [],
+  };
+
+  const columnId = initialBoardState.columns[1].id;
+  const addTaskAction = addTask({ columnId, task: newTask });
+  expect(initialBoardState.columns[1].tasks.length).toEqual(2);
+
+  const newState = boardReducer(initialBoardState, addTaskAction);
+  const [column] = newState.columns.filter((col) => col.id === columnId);
+  expect(column.tasks.length).toEqual(3);
+});
+
+it("changes a tasks's priority with changeTaskPriority", () => {
+  const columnId = initialBoardState.columns[0].id;
+  const task = initialBoardState.columns[0].tasks[0];
+
+  expect(task.priority).toEqual(1);
+
+  const changeTaskPriorityAction = changeTaskPriority({
+    taskId: task.id,
+    columnId,
+    newPriority: 3,
+  });
+
+  const newState = boardReducer(initialBoardState, changeTaskPriorityAction);
+  const [newColumnState] = newState.columns.filter(
+    (col) => col.id === columnId,
+  );
+  const [newTaskState] = newColumnState.tasks.filter(
+    (_task) => _task.id === task.id,
+  );
+
+  expect(newTaskState.priority).toEqual(3);
 });
 
 it("returns all columns with getAllColumns", () => {
