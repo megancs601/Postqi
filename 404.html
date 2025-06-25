@@ -3,10 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <script>
-      // Grab the current full path
-      const redirectPath =
-        "/Postqi" + location.pathname + location.search + location.hash;
-      // Redirect to index.html with the original path encoded as a hash
+      const path = location.pathname + location.search + location.hash;
+
+      // Avoid duplicate /Postqi if it's already in the path
+      const redirectPath = path.startsWith("/Postqi") ? path : "/Postqi" + path;
+
       location.replace(redirectPath);
     </script>
   </head>
