@@ -9,7 +9,7 @@ export default function DateTag({ date }: DateProp) {
   const isOverdue = parsedDate < today;
   const color = isOverdue ? "red" : "gray";
   const colorMap = {
-    red: "bg-red-700 ",
+    red: "bg-red-700 !text-white",
     gray: "text-gray-300",
   };
 
@@ -19,13 +19,22 @@ export default function DateTag({ date }: DateProp) {
   const formatted = `${mm}/${dd}/${yyyy}`;
 
   return (
-    <time
-      dateTime={parsedDate.toISOString()}
-      title={parsedDate.toISOString()}
-      aria-label={`Due: ${formatted} ${isOverdue ? "(overdue)" : ""}`}
-      className={`tag ${colorMap[color]}`}
-    >
-      {formatted}
-    </time>
+    <>
+      <time
+        dateTime={parsedDate.toISOString()}
+        title={parsedDate.toISOString()}
+        aria-label={`Due: ${formatted} ${isOverdue ? "(overdue)" : ""}`}
+        className={`tag ${colorMap[color]} flex items-center`}
+      >
+        <span
+          className={`material-symbols-outlined mr-1 !${colorMap[color]}`}
+          style={{ fontSize: "18px" }}
+          aria-hidden="true"
+        >
+          alarm
+        </span>
+        {formatted}
+      </time>
+    </>
   );
 }
